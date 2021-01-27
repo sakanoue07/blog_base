@@ -1,0 +1,35 @@
+<div id="main">
+    <%= image_tag "main-img.jpg", class: 'image-main' %>
+</div>
+<div id="article_wrap">
+    <div id="article_list">
+        <% @posts.each do |post| %>
+        <div>
+            <%= link_to post_path(post) do %>
+            <h2 class="item"><%= post.title %></h2>
+            <% end %>
+
+            <p><%= post.created_at.to_s(:datetime_jp) %></p>
+            <% if post.user == current_user %>
+            <%= link_to '編集', edit_post_path(post), class: 'item' %>
+            <%= link_to '削除', post_path(post), method: :delete, data: {confirm: "削除しますか?"} , class: 'item' %>
+            <% end %>
+        </div>
+        <% end %>
+
+    </div>
+
+    <div id="sidebar">
+
+        <h2>★PV数ランキング</h2>
+        <ul>
+            <li><a href="">記事タイトル記事タイトル１記事タイトル記事タイトル<span>（10PV）</span></a></li>
+            <li><a href="">記事タイトル記事タイトル１記事タイトル記事タイトル<span>（8PV）</span></a></li>
+            <li><a href="">記事タイトル記事タイトル１記事タイトル記事タイトル<span>（2PV）</span></a></li>
+        </ul>
+    </div>
+
+    <div class="clear"></div>
+    <%= Redis.current.get('mykey') %>
+
+</div>
